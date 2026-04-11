@@ -5,11 +5,18 @@ public class CarHandler : MonoBehaviour
     [SerializeField]
     Rigidbody rb;
 
+    [SerializeField]
+    Transform gameModel;
+
     float accelerationMultiplier = 5;  // Accelaration speed
     float brakeMultiplier = 3;  // Brake Speed
     float steerMultiplier = 5;   // Streeing Speed
 
     Vector2 input = Vector2.zero;
+    private float maxSteerVelocity = 2f;
+
+    private float maxForwardVelocity = 10;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -19,7 +26,7 @@ public class CarHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        gameModel.transform.rotation = Quaternion.Euler(0, rb.linearVelocity.x * 5, 0);
     }
 
     private void FixedUpdate()  // This function will fire at a fixed time
@@ -33,7 +40,7 @@ public class CarHandler : MonoBehaviour
             rb.linearDamping = 0.2f;
         }
 
-        if (input.y < 0)
+        if (input.y < 0)  // here it will execute if the y input is negative 
         {
             Brake();
         }
@@ -46,24 +53,43 @@ public class CarHandler : MonoBehaviour
     {
         rb.linearDamping = 0;
 
+        if (rb.linearVelocity.z>=maxForwardVelocity)
+        {
+            return;
+        }
+
         rb.AddForce(rb.transform.forward * accelerationMultiplier * input.y);  // the car will move forward at speed of 5
     }
 
     void Brake()
     {
-        if (rb.angularVelocity.z < 0)
-        {
-            return;
+        if (rb.linearVelocity.z < 0)  // here we check if the car is moving forward and then only apply brake and stop the car  
+        {                             // rb.linearVelocity.z is positive then the car is moving forward and bout to stop
+            return;   // this will not allow the car to move backward.
         }  
-        rb.AddForce(rb.transform.forward * brakeMultiplier * input.y);
+        rb.AddForce(rb.transform.forward * brakeMultiplier * input.y);  // This will slow the car the input.y will be negative value.
     }
 
     void Steer()
     {
         if (Mathf.Abs(input.x)>0)  // so here we convert the input.x to absolute value and ignore the positive and negative sign.
         {
-            rb.AddForce(rb.transform.right * steerMultiplier * input.x);  // the car will more left and right.
-                                                                            // if the input.x is positive moves right and input.x is negative move left.
+            float speedBaseSteerLimit = rb.linearVelocity.z / 5.0f;  // if the car is stationary not moving then the steer will not work. 
+                                                                     // The the rb.linearVelocity.z is 0 then the force added will be 0.
+            speedBaseSteerLimit = Mathf.Clamp01(speedBaseSteerLimit);
+            rb.AddForce(rb.transform.right * steerMultiplier * input.x*speedBaseSteerLimit);  // the car will more left and right.
+                                                                                              // if the input.x is positive moves right and input.x is negative move left.
+
+            float normalizedX = rb.linearVelocity.x / maxSteerVelocity;
+            normalizedX = Mathf.Clamp(normalizedX,-1.0f,1.0f);
+
+            // here we update the rigid body vector to be x,y,z x is the speed to move left and right y is 0 and z is the same.
+            rb.linearVelocity = new Vector3(normalizedX * maxSteerVelocity, 0 ,rb.linearVelocity.z);
+
+        }
+        else
+        {   // Auto center the car if the input.y is press and released lerp(current position , center position , smooth animation to center.)  Reset the position and rotation of the car after the turn.
+            rb.linearVelocity = Vector3.Lerp(rb.linearVelocity, new Vector3(0,0,rb.linearVelocity.z), Time.fixedDeltaTime*3);
         }
     }
 
