@@ -699,6 +699,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CarHandler
   rb: {fileID: 1088723239}
+  gameModel: {fileID: 984510862}
 --- !u!1 &1902560582
 GameObject:
   m_ObjectHideFlags: 0
