@@ -55,7 +55,27 @@ public class EndlessLevelHandler : MonoBehaviour
     {
         while (true)
         {
+            UpdateSectionPosition();
             yield return waitFor100ms;
+        }
+
+    }
+
+    void UpdateSectionPosition()
+    {
+        for (int i = 0; i<section.Length; i++)
+        {
+            if (section[i].transform.position.z - playerCarTransform.position.z <-sectionLength)
+            {
+                Vector3 lastSectionPosition = section[i].transform.position;
+                section[i].SetActive(false);
+
+                section[i] = GetRandomSectionFromPool();
+
+                section[i].transform.position = new Vector3(lastSectionPosition.x, 0 , lastSectionPosition.z + sectionLength * section.Length);
+
+                section[i].SetActive(true);
+            }
         }
 
     }
