@@ -41,7 +41,7 @@ public class EndlessLevelHandler : MonoBehaviour
         {
             GameObject randomSelection = GetRandomSectionFromPool();  // random prefab object will be selected .
 
-            randomSelection.transform.position = new Vector3(sectionPool[i].transform.position.x,0,i*sectionLength);
+            randomSelection.transform.position = new Vector3(0,0,i*sectionLength);
             randomSelection.SetActive(true);
             section[i] = randomSelection;
         }
@@ -51,7 +51,7 @@ public class EndlessLevelHandler : MonoBehaviour
         StartCoroutine(UpdateLessOften());
     }
 
-    IEnumerator UpdateLessOften()
+    IEnumerator UpdateLessOften()  // instead of using the update method we use this so it will be call every 0.1s
     {
         while (true)
         {
@@ -65,7 +65,7 @@ public class EndlessLevelHandler : MonoBehaviour
     {
         for (int i = 0; i<section.Length; i++)
         {
-            if (section[i].transform.position.z - playerCarTransform.position.z <-sectionLength)
+            if (section[i].transform.position.z - playerCarTransform.position.z <-sectionLength)  // here we check if the player pass the section if the player pass the section execute this.
             {
                 Vector3 lastSectionPosition = section[i].transform.position;
                 section[i].SetActive(false);

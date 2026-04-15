@@ -180,7 +180,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 600
+  far clip plane: 1000
   field of view: 60.000004
   orthographic: 0
   orthographic size: 5
@@ -306,7 +306,6 @@ MonoBehaviour:
   - {fileID: 9177506732650212721, guid: 05d4d8468e8aa2945b71e1dc03079a3b, type: 3}
   - {fileID: 9030726675093376956, guid: 4be0170b529f2804788297d74bda7f18, type: 3}
   - {fileID: 908704099162788068, guid: 3b6bfd5a58155dd479a15ebf2ed618b7, type: 3}
-  - {fileID: 517094067952496376, guid: 7d2810c6a3f997d43ae0b3a800bc3994, type: 3}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -762,7 +761,7 @@ MonoBehaviour:
     FieldOfView: 60.000004
     OrthographicSize: 5
     NearClipPlane: 0.3
-    FarClipPlane: 600
+    FarClipPlane: 1000
     Dutch: 0
     ModeOverride: 0
     PhysicalProperties:
