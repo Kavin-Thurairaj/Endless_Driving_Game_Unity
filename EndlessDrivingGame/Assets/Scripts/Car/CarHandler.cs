@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class CarHandler : MonoBehaviour
@@ -25,7 +26,7 @@ public class CarHandler : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        Time.timeScale = 1.0f;
     }
 
     // Update is called once per frame
@@ -45,6 +46,8 @@ public class CarHandler : MonoBehaviour
         {
             rb.linearDamping = rb.angularVelocity.z * 0.1f;
             rb.linearDamping = Mathf.Clamp(rb.linearDamping, 1.5f, 10);
+
+            rb.MovePosition(Vector3.Lerp(transform.position, new Vector3(0,0,transform.position.z),Time.deltaTime * 0.5f));
             return;
         }
 
@@ -117,7 +120,24 @@ public class CarHandler : MonoBehaviour
         input = inputVector;
     }
 
+    IEnumerator SlowDownTimeCO()
+    {
+        while (Time.timeScale>0.2f)
+        {
+            Time.timeScale -= Time.deltaTime * 2;
+            yield return null;
+        }
 
+        yield return new WaitForSeconds(0.5f);
+
+        while (Time.timeScale <= 1.0f)
+        {
+            Time.timeScale += Time.deltaTime;
+            yield return null;
+        }
+
+        Time.timeScale = 1.0f;
+    }
 
     private void OnCollisionEnter(Collision collision)  // when the car enters a collision then this method will be fired.
     {
@@ -126,5 +146,7 @@ public class CarHandler : MonoBehaviour
         Vector3 velocity = rb.angularVelocity;  // here we get the rigidbody of the car
         explodeHandler.Explode(velocity * 45);  // here we call the explode method in the explode handler script to explode the car
         isExploded = true;
+
+        StartCoroutine(SlowDownTimeCO());
     }
 }
