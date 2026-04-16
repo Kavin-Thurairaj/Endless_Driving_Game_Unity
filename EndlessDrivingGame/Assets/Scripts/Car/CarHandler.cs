@@ -31,11 +31,23 @@ public class CarHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isExploded)
+        {
+            return;
+        }
         gameModel.transform.rotation = Quaternion.Euler(0, rb.linearVelocity.x * 5, 0);
     }
 
     private void FixedUpdate()  // This function will fire at a fixed time
     {
+
+        if (isExploded)
+        {
+            rb.linearDamping = rb.angularVelocity.z * 0.1f;
+            rb.linearDamping = Mathf.Clamp(rb.linearDamping, 1.5f, 10);
+            return;
+        }
+
         if (input.y > 0)  // if the vertical y axis increase then the car will accelerate.
         {
             Accerlerate();
