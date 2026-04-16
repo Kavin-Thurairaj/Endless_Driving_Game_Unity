@@ -3,12 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - CarAI
+  - CarPart
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Car
   - Water
   - UI
   - CameraCollusionDetection
