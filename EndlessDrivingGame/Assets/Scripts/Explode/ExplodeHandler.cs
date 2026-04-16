@@ -19,7 +19,7 @@ public class ExplodeHandler : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        //Explode(Vector3.forward);
+        
     }
 
     public void Explode(Vector3 externalForce)
