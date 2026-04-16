@@ -44,6 +44,7 @@ public class AiCarSpawner : MonoBehaviour
     IEnumerator UpdateLessOftenCO()  // this is a coroutine method where the method can stop and execute later.
     {
         while (true) {
+            CleanUpCarBeyondView();
             SpawnNewCars();
             yield return wait;   // this says that wait for the 0.5s to finish and then execute the method.
         }
@@ -80,5 +81,24 @@ public class AiCarSpawner : MonoBehaviour
         carToSpawn.SetActive(true);  // then we set it to active true in the world.
 
         lastTimeCarSpawn = Time.time;
+    }
+
+    void CleanUpCarBeyondView()
+    {
+        foreach(GameObject aiCar in carAIPool) {
+            if (!aiCar.activeInHierarchy) {  // if the car is not yet active then skip it.
+                continue;
+            }
+
+            if (aiCar.transform.position.z - playerCarTransform.position.z > 200) {   // the ai car will not be shown if the distance between the player and aiCar is high.
+                aiCar.SetActive(false);
+            }
+
+            if (aiCar.transform.position.z - playerCarTransform.transform.position.z < -50)
+            {
+                aiCar.SetActive(false);
+            }
+        
+        }
     }
 }
