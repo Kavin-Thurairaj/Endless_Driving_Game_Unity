@@ -16,7 +16,10 @@ public class AiCarSpawner : MonoBehaviour
     WaitForSeconds wait = new WaitForSeconds(0.5f);
     float lastTimeCarSpawn = 0;
 
+    [SerializeField]
+    LayerMask otherCarLayerMask;
 
+    Collider[] overLappedCheckCollider = new Collider[1];
 
     void Start()
     {
@@ -75,7 +78,12 @@ public class AiCarSpawner : MonoBehaviour
             return;
         }
 
-        Vector3 spawnPosition = new Vector3 (0, 0, playerCarTransform.transform.position.z*100);  // here this is the spawn position of the Ai car.
+        Vector3 spawnPosition = new Vector3 (0, 0, playerCarTransform.transform.position.z+100);  // here this is the spawn position of the Ai car.
+
+        if (Physics.OverlapBoxNonAlloc(spawnPosition, Vector3.one * 2, overLappedCheckCollider, Quaternion.identity, otherCarLayerMask)>0)
+        {
+            return;
+        }
 
         carToSpawn.transform.position = spawnPosition;  // here we given the position to the AI car to spawn.
         carToSpawn.SetActive(true);  // then we set it to active true in the world.
