@@ -8,6 +8,11 @@ public class CarHandler : MonoBehaviour
     [SerializeField]
     Transform gameModel;
 
+    [SerializeField]
+    ExplodeHandler explodeHandler;
+
+    bool isExploded = false;
+
     float accelerationMultiplier = 5;  // Accelaration speed
     float brakeMultiplier = 3;  // Brake Speed
     float steerMultiplier = 5;   // Streeing Speed
@@ -98,5 +103,16 @@ public class CarHandler : MonoBehaviour
     {
         inputVector.Normalize();  // here we normalise the vector value from user input
         input = inputVector;
+    }
+
+
+
+    private void OnCollisionEnter(Collision collision)  // when the car enters a collision then this method will be fired.
+    {
+        Debug.Log($"Hit {collision.collider.name}");
+
+        Vector3 velocity = rb.angularVelocity;  // here we get the rigidbody of the car
+        explodeHandler.Explode(velocity * 45);  // here we call the explode method in the explode handler script to explode the car
+        isExploded = true;
     }
 }
