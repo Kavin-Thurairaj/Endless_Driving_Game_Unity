@@ -23,10 +23,13 @@ public class CarHandler : MonoBehaviour
 
     private float maxForwardVelocity = 10;
 
+    bool isPlayer = true;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         Time.timeScale = 1.0f;
+        isPlayer = CompareTag("Player");
     }
 
     // Update is called once per frame
@@ -142,6 +145,19 @@ public class CarHandler : MonoBehaviour
     private void OnCollisionEnter(Collision collision)  // when the car enters a collision then this method will be fired.
     {
         Debug.Log($"Hit {collision.collider.name}");
+
+        if (!isPlayer)
+        {
+            if (collision.transform.root.CompareTag("Untagged"))
+            {
+                return;
+            }
+
+            if (collision.transform.root.CompareTag("CarAI"))
+            {
+                return;
+            }
+        }
 
         Vector3 velocity = rb.angularVelocity;  // here we get the rigidbody of the car
         explodeHandler.Explode(velocity * 45);  // here we call the explode method in the explode handler script to explode the car
