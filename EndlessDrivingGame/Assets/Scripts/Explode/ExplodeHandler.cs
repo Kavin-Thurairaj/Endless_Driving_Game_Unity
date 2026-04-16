@@ -35,8 +35,9 @@ public class ExplodeHandler : MonoBehaviour
             rb.gameObject.SetActive(true);  // here the car pieces will be set to true so it will be visible when collided.
 
             rb.isKinematic = false;
+            rb.interpolation = RigidbodyInterpolation.Interpolate;
 
-            rb.AddForce(Vector3.up*200 + externalForce,ForceMode.Force);
+            rb.AddForce(Vector3.up * 200 + externalForce,ForceMode.Force);
         }
     }
     
