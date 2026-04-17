@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2462645667990842838}
   - component: {fileID: 3761855017977689203}
   - component: {fileID: 7019544284390899379}
+  - component: {fileID: 9186314271588287475}
   m_Layer: 3
   m_Name: CarPrefab
   m_TagString: Player
@@ -105,6 +106,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ExplodeHandler
   originalObject: {fileID: 8693967687026129585}
   model: {fileID: 8521140771401279989}
+--- !u!114 &9186314271588287475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4602344088867705251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba83977b7a7924d4f89b7687f564c9cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AICarHandler
+  carHandler: {fileID: 2462645667990842838}
+  meshCollider: {fileID: 661676844854670431}
+  otherCarsLayerMask:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &8521140771401279989
 GameObject:
   m_ObjectHideFlags: 0
