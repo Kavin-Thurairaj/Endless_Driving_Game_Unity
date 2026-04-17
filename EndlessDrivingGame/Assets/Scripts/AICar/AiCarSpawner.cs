@@ -78,7 +78,7 @@ public class AiCarSpawner : MonoBehaviour
             return;
         }
 
-        Vector3 spawnPosition = new Vector3 (0, 0, playerCarTransform.transform.position.z+100);  // here this is the spawn position of the Ai car.
+        Vector3 spawnPosition = new Vector3 (0, 0.061f, playerCarTransform.transform.position.z+100);  // here this is the spawn position of the Ai car.
 
         if (Physics.OverlapBoxNonAlloc(spawnPosition, Vector3.one * 2, overLappedCheckCollider, Quaternion.identity, otherCarLayerMask)>0)
         {
