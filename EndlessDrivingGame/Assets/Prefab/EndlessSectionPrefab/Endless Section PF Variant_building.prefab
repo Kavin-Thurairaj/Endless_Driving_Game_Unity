@@ -256,9 +256,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 375508530907248317, guid: 1e02427eb2bd432479ac8a3ef2210381, type: 3}
+      propertyPath: m_Convex
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 517094067952496376, guid: 1e02427eb2bd432479ac8a3ef2210381, type: 3}
       propertyPath: m_Name
-      value: Endless Section PF Variant
+      value: Endless Section PF Variant_building
       objectReference: {fileID: 0}
     - target: {fileID: 7716946477525188436, guid: 1e02427eb2bd432479ac8a3ef2210381, type: 3}
       propertyPath: m_LocalPosition.x
