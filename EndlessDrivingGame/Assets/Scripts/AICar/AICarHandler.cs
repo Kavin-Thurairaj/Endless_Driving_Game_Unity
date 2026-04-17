@@ -18,6 +18,10 @@ public class AICarHandler : MonoBehaviour
     LayerMask otherCarsLayerMask;
 
     WaitForSeconds wait = new WaitForSeconds(0.2f);
+
+    //Lanes
+    int drivingInLane = 0;
+
     private void Awake()
     {
         if (CompareTag("Player"))  // if this script is attached to a player gameObject then destroy it.
@@ -44,6 +48,16 @@ public class AICarHandler : MonoBehaviour
         {
             accelerationInput = -1;
         }
+
+        float desiredPositionX = Utils.CarLanes[drivingInLane];
+
+        float difference = desiredPositionX - transform.position.x;
+
+        if (Mathf.Abs(difference) > 0.05f)
+        {
+            steerInput = 1.0f * difference;
+        }
+
         steerInput = Mathf.Clamp(steerInput,-1.0f,1.0f);
 
         // steerInput x axis movement and accelerationInput is y axis
@@ -78,6 +92,10 @@ public class AICarHandler : MonoBehaviour
 
     private void OnEnable()
     {
+        //Set random lane
+        drivingInLane = Random.Range(0,Utils.CarLanes.Length);
+
+        // Set random speed
         carHandler.SetMaxSpeed(Random.Range(2,4));
     }
 }
