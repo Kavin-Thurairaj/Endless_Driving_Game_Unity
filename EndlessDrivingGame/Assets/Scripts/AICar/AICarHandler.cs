@@ -10,9 +10,16 @@ public class AICarHandler : MonoBehaviour
     [SerializeField]
     MeshCollider meshCollider;
 
+
+    // SFX
+    [SerializeField]
+    AudioSource honkAS;
+
     //Collision Dectection
     RaycastHit[] raycastHits = new RaycastHit[1]; 
     bool isCarAhead = false;
+
+    float carAheadDistance =0;
 
     [SerializeField]
     LayerMask otherCarsLayerMask;
@@ -47,6 +54,11 @@ public class AICarHandler : MonoBehaviour
         if (isCarAhead)
         {
             accelerationInput = -1;
+            if (carAheadDistance<10 && !honkAS.isPlaying)
+            {
+                honkAS.pitch = Random.Range(0.5f, 1.1f);
+                honkAS.Play();
+            }
         }
 
         float desiredPositionX = Utils.CarLanes[drivingInLane];
@@ -84,6 +96,7 @@ public class AICarHandler : MonoBehaviour
 
         if(numberOfHits > 0)
         {
+            carAheadDistance = (transform.position - raycastHits[0].point).magnitude;  // if there is a gameobject in front of the ai car then the ditance will be calculated.
             return true;
         }
 
