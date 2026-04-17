@@ -27,6 +27,8 @@ public class InputHandler : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))  // if R key is pressed then the scene will be reloaded.
         {
+            Time.timeScale = 1.0f;  // here we reset the speed for the game after the slow motion explode.
+
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);  // load the scene again.
         }
     }
