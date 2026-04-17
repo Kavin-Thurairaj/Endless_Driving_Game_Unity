@@ -12,24 +12,48 @@ public class CarHandler : MonoBehaviour
     [SerializeField]
     ExplodeHandler explodeHandler;
 
+    //SFX
+    [SerializeField]
+    AudioSource carEngineAS;
+
+    [SerializeField]
+    AnimationCurve carPitchAnimationCurve;
+
+
+    [SerializeField]
+    AudioSource CarBrakeAs;
+
+    [SerializeField]
+    AudioSource carCrashAS;
+
     bool isExploded = false;
 
     float accelerationMultiplier = 5;  // Accelaration speed
     float brakeMultiplier = 3;  // Brake Speed
     float steerMultiplier = 5;   // Streeing Speed
 
+    //Input
     Vector2 input = Vector2.zero;
-    private float maxSteerVelocity = 2f;
 
+    // Velocity
+    private float maxSteerVelocity = 2f;
     private float maxForwardVelocity = 10;
+    float carMaxSpeedPercentage;
 
     bool isPlayer = true;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    
+
     void Start()
     {
-        Time.timeScale = 1.0f;
+        
         isPlayer = CompareTag("Player");
+        if(isPlayer)
+        {
+            carEngineAS.Play();
+        }
+
     }
 
     // Update is called once per frame
@@ -37,9 +61,12 @@ public class CarHandler : MonoBehaviour
     {
         if (isExploded)
         {
+            FadeOutCarAudio();
             return;
         }
         gameModel.transform.rotation = Quaternion.Euler(0, rb.linearVelocity.x * 5, 0);
+
+        UpdatedCarAudio();
     }
 
     private void FixedUpdate()  // This function will fire at a fixed time
@@ -116,6 +143,49 @@ public class CarHandler : MonoBehaviour
         }
     }
 
+    void UpdatedCarAudio()
+    {
+        if (!isPlayer)  // if it is a ai car then do nothing
+        {
+            return;
+        }
+
+        carMaxSpeedPercentage = rb.linearVelocity.z / maxForwardVelocity;
+
+        carEngineAS.pitch = carPitchAnimationCurve.Evaluate(carMaxSpeedPercentage);
+
+        if(input.y < 0 && carMaxSpeedPercentage > 0.2f)
+        {
+            Debug.Log(carMaxSpeedPercentage);
+
+            if(carMaxSpeedPercentage > 0 && carMaxSpeedPercentage < 0.3)  //if the percentage is greater than 0 and less than 0.3
+            {
+                if (!CarBrakeAs.isPlaying)
+                {
+                    CarBrakeAs.Play();
+                }
+            }
+           
+
+            CarBrakeAs.volume = Mathf.Lerp(CarBrakeAs.volume, 1.0f, Time.deltaTime * 10);
+        }
+        else
+        {
+            CarBrakeAs.volume = Mathf.Lerp(CarBrakeAs.volume,0, Time.deltaTime * 30);
+        }
+    }
+
+    void FadeOutCarAudio()
+    {
+        if (!isPlayer)
+        {
+            return;
+        }
+
+        carEngineAS.volume = Mathf.Lerp(carEngineAS.volume,0,Time.deltaTime * 10);
+        CarBrakeAs.volume = Mathf.Lerp(CarBrakeAs.volume, 0, Time.deltaTime * 10);
+    }
+
 
     public void setInput(Vector2 inputVector)  // This is a setter method where the input Vector will be normalize and stored in the input.
     {
@@ -168,6 +238,14 @@ public class CarHandler : MonoBehaviour
         Vector3 velocity = rb.angularVelocity;  // here we get the rigidbody of the car
         explodeHandler.Explode(velocity * 45);  // here we call the explode method in the explode handler script to explode the car
         isExploded = true;
+
+        carCrashAS.volume = carMaxSpeedPercentage;
+        carCrashAS.volume = Mathf.Clamp(carCrashAS.volume, 0.25f,1f);
+
+        carCrashAS.pitch = carMaxSpeedPercentage;
+        carCrashAS.pitch = Mathf.Clamp(carCrashAS.pitch,0.3f,1f);
+
+        carCrashAS.Play();
 
         StartCoroutine(SlowDownTimeCO());
     }
