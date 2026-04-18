@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using System;
 
 public class CarHandler : MonoBehaviour
 {
@@ -42,7 +43,14 @@ public class CarHandler : MonoBehaviour
 
     bool isPlayer = true;
 
+    //Stats
+    float carStartPositionZ;
+    float distanceTravelled = 0;
+    public float DistanceTravel =>distanceTravelled; // what ever the value in distanceTravelled will be set to the DistanceTravel.
 
+
+    //Events
+    public event Action <CarHandler> OnPlayerCrashed;  // this is the event action that will throw the car handler refer at run time.
     
 
     void Start()
@@ -52,7 +60,9 @@ public class CarHandler : MonoBehaviour
         if(isPlayer)
         {
             carEngineAS.Play();
+            
         }
+        carStartPositionZ = transform.position.z;
 
     }
 
@@ -67,6 +77,9 @@ public class CarHandler : MonoBehaviour
         gameModel.transform.rotation = Quaternion.Euler(0, rb.linearVelocity.x * 5, 0);
 
         UpdatedCarAudio();
+
+        // Update the Car distance travelled
+        distanceTravelled = transform.position.z - carStartPositionZ; // here we get the distance travelled difference.
     }
 
     private void FixedUpdate()  // This function will fire at a fixed time
@@ -76,6 +89,8 @@ public class CarHandler : MonoBehaviour
         {
             rb.linearDamping = rb.angularVelocity.z * 0.1f;
             rb.linearDamping = Mathf.Clamp(rb.linearDamping, 1.5f, 10);
+            Debug.Log("Linear: " + rb.linearDamping);
+
 
             rb.MovePosition(Vector3.Lerp(transform.position, new Vector3(0,0,transform.position.z),Time.deltaTime * 0.5f));
             return;
@@ -235,9 +250,13 @@ public class CarHandler : MonoBehaviour
             }
         }
 
-        Vector3 velocity = rb.angularVelocity;  // here we get the rigidbody of the car
+        Vector3 velocity = rb.linearVelocity + rb.angularVelocity;  // here we get the rigidbody of the car
         explodeHandler.Explode(velocity * 45);  // here we call the explode method in the explode handler script to explode the car
         isExploded = true;
+
+        Vector3 impactDirection = -rb.transform.forward;
+        rb.AddForce(impactDirection *4f, ForceMode.Impulse);  // this moves the car object backward gives you a backward effect.
+        Debug.Log(impactDirection);
 
         carCrashAS.volume = carMaxSpeedPercentage;
         carCrashAS.volume = Mathf.Clamp(carCrashAS.volume, 0.25f,1f);
@@ -246,6 +265,9 @@ public class CarHandler : MonoBehaviour
         carCrashAS.pitch = Mathf.Clamp(carCrashAS.pitch,0.3f,1f);
 
         carCrashAS.Play();
+
+        //Trigger Event
+        OnPlayerCrashed?.Invoke(this);  // here we pass the car handler reference to the UI Handler. Internally it call the method register to it the listener in UI.
 
         StartCoroutine(SlowDownTimeCO());
     }
