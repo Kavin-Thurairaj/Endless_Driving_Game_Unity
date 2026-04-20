@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 2462645667990842838}
   - component: {fileID: 3761855017977689203}
   - component: {fileID: 7019544284390899379}
-  - component: {fileID: 9186314271588287475}
+  - component: {fileID: 6786849750982298968}
   m_Layer: 3
   m_Name: CarPrefab
   m_TagString: Player
@@ -194,7 +194,7 @@ Transform:
   m_GameObject: {fileID: 4602344088867705251}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.05699, y: 0.1, z: 2.67249}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -244,10 +244,29 @@ MonoBehaviour:
   rb: {fileID: 4841913698304878102}
   gameModel: {fileID: 5391504100024912934}
   explodeHandler: {fileID: 7019544284390899379}
+  carMeshRenderer: {fileID: 4066489122216252504}
   carEngineAS: {fileID: 355994833381926154}
   carPitchAnimationCurve:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: -0.001160482
+      value: 0.50114477
+      inSlope: 0.45798928
+      outSlope: 0.45798928
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.12580161
+    - serializedVersion: 3
+      time: 0.6997522
+      value: 5.0922976
+      inSlope: -1.3789473
+      outSlope: -1.3789473
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.3996511
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
@@ -280,7 +299,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ExplodeHandler
   originalObject: {fileID: 8693967687026129585}
   model: {fileID: 8521140771401279989}
---- !u!114 &9186314271588287475
+--- !u!114 &6786849750982298968
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -775,11 +794,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7090889686196672792, guid: ac5951fdcea66854183dbb3b88e1f6c8, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -6257368761631340415, guid: ac5951fdcea66854183dbb3b88e1f6c8, type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -3071774265405360906, guid: ac5951fdcea66854183dbb3b88e1f6c8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -3071774265405360906, guid: ac5951fdcea66854183dbb3b88e1f6c8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -3071774265405360906, guid: ac5951fdcea66854183dbb3b88e1f6c8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -3071774265405360906, guid: ac5951fdcea66854183dbb3b88e1f6c8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: 402447365276589137, guid: ac5951fdcea66854183dbb3b88e1f6c8, type: 3}
       propertyPath: m_Layer
@@ -787,7 +822,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 402447365276589137, guid: ac5951fdcea66854183dbb3b88e1f6c8, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ac5951fdcea66854183dbb3b88e1f6c8, type: 3}
       propertyPath: m_Name
@@ -796,6 +831,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: ac5951fdcea66854183dbb3b88e1f6c8, type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ac5951fdcea66854183dbb3b88e1f6c8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2499721959425190687, guid: ac5951fdcea66854183dbb3b88e1f6c8, type: 3}
       propertyPath: m_Layer
@@ -807,7 +846,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4946041637641612903, guid: ac5951fdcea66854183dbb3b88e1f6c8, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7362023724096292562, guid: ac5951fdcea66854183dbb3b88e1f6c8, type: 3}
       propertyPath: m_Layer
@@ -819,7 +858,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8308636065081048576, guid: ac5951fdcea66854183dbb3b88e1f6c8, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9091586775337793799, guid: ac5951fdcea66854183dbb3b88e1f6c8, type: 3}
       propertyPath: m_Layer
@@ -865,6 +904,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4946041637641612903, guid: ac5951fdcea66854183dbb3b88e1f6c8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3263174169844097286}
+    - targetCorrespondingSourceObject: {fileID: 4946041637641612903, guid: ac5951fdcea66854183dbb3b88e1f6c8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6180534761624951611}
     - targetCorrespondingSourceObject: {fileID: 8308636065081048576, guid: ac5951fdcea66854183dbb3b88e1f6c8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6627236819965887603}
@@ -874,6 +916,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8308636065081048576, guid: ac5951fdcea66854183dbb3b88e1f6c8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3171699687062880193}
+    - targetCorrespondingSourceObject: {fileID: 8308636065081048576, guid: ac5951fdcea66854183dbb3b88e1f6c8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1101303731133518868}
     - targetCorrespondingSourceObject: {fileID: -7090889686196672792, guid: ac5951fdcea66854183dbb3b88e1f6c8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3240761773191914658}
@@ -883,6 +928,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -7090889686196672792, guid: ac5951fdcea66854183dbb3b88e1f6c8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8667729454431517085}
+    - targetCorrespondingSourceObject: {fileID: -7090889686196672792, guid: ac5951fdcea66854183dbb3b88e1f6c8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7847315993064315125}
     - targetCorrespondingSourceObject: {fileID: 402447365276589137, guid: ac5951fdcea66854183dbb3b88e1f6c8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1348703037895480580}
@@ -892,6 +940,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 402447365276589137, guid: ac5951fdcea66854183dbb3b88e1f6c8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7583460735725469709}
+    - targetCorrespondingSourceObject: {fileID: 402447365276589137, guid: ac5951fdcea66854183dbb3b88e1f6c8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6177655674474719629}
   m_SourcePrefab: {fileID: 100100000, guid: ac5951fdcea66854183dbb3b88e1f6c8, type: 3}
 --- !u!1 &515785472132266464 stripped
 GameObject:
@@ -1004,7 +1055,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -1044,6 +1095,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1101303731133518868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 515785472132266464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3a44ab1fbccf2a47b8d8b2b810f6f14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CarPartHandler
 --- !u!1 &742401646180597479 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9091586775337793799, guid: ac5951fdcea66854183dbb3b88e1f6c8, type: 3}
@@ -1236,7 +1299,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -1276,6 +1339,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6180534761624951611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3514385472464677255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3a44ab1fbccf2a47b8d8b2b810f6f14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CarPartHandler
+--- !u!23 &4066489122216252504 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 5479005057541673912, guid: ac5951fdcea66854183dbb3b88e1f6c8, type: 3}
+  m_PrefabInstance: {fileID: 8387466524895971296}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6257346775685770495 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2499721959425190687, guid: ac5951fdcea66854183dbb3b88e1f6c8, type: 3}
@@ -1495,7 +1575,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -1535,6 +1615,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &7847315993064315125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7637644529627275528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3a44ab1fbccf2a47b8d8b2b810f6f14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CarPartHandler
 --- !u!1 &8211051554560400305 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 402447365276589137, guid: ac5951fdcea66854183dbb3b88e1f6c8, type: 3}
@@ -1646,7 +1738,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -1686,6 +1778,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6177655674474719629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8211051554560400305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3a44ab1fbccf2a47b8d8b2b810f6f14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CarPartHandler
 --- !u!4 &8353329726560591883 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ac5951fdcea66854183dbb3b88e1f6c8, type: 3}
