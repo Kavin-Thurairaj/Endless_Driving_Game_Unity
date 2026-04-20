@@ -25,7 +25,7 @@ public class AiCarSpawner : MonoBehaviour
     {
         playerCarTransform = GameObject.FindGameObjectWithTag("Player").transform;  // here the script will search for the game object with tag Player and then get its transform.
 
-
+        Debug.Log("Ai car spawner: " + playerCarTransform);
         int prefabIndex = 0;
 
         for (int i=0; i<carAIPool.Length; i++)
