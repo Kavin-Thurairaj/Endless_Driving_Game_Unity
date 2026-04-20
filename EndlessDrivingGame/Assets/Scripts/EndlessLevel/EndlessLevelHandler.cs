@@ -20,7 +20,7 @@ public class EndlessLevelHandler : MonoBehaviour
     void Start()
     {
         playerCarTransform = GameObject.FindGameObjectWithTag("Player").transform;  // here we get the Car object in the world and access its transform.
-
+     
         int prefabIndex = 0;
 
         for (int i = 0; i<sectionPool.Length; i++)
