@@ -18,19 +18,17 @@ public class UIHandler : MonoBehaviour
     [SerializeField]
     CanvasGroup gameOverCanvasGroup;
 
-    private void Awake()
-    {
-        playerCarHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<CarHandler>();
 
-        //THis is method registering not method Calling
-        playerCarHandler.OnPlayerCrashed += PlayerCarHandler_OnPlayerCrashed;  // Here we register the listener method like """OnPlayerCrashed = OnPlayerCrashed + PlayerCarHandler_OnPlayerCrashed;"""
-
-    }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         gameOverCanvasGroup.interactable = false;
         gameOverCanvasGroup.alpha = 0;
+
+        playerCarHandler = GameObject.FindGameObjectWithTag("Player").GetComponent<CarHandler>();
+        //THis is method registering not method Calling
+        playerCarHandler.OnPlayerCrashed += PlayerCarHandler_OnPlayerCrashed;  // Here we register the listener method like """OnPlayerCrashed = OnPlayerCrashed + PlayerCarHandler_OnPlayerCrashed;"""
+
     }
 
     // Update is called once per frame
