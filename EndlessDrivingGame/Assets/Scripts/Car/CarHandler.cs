@@ -13,6 +13,11 @@ public class CarHandler : MonoBehaviour
     [SerializeField]
     ExplodeHandler explodeHandler;
 
+    [SerializeField]
+    MeshRenderer carMeshRenderer;
+
+    public MeshRenderer CarMeshRenderer => carMeshRenderer;
+
     //SFX
     [SerializeField]
     AudioSource carEngineAS;
@@ -89,7 +94,7 @@ public class CarHandler : MonoBehaviour
         {
             rb.linearDamping = rb.angularVelocity.z * 0.1f;
             rb.linearDamping = Mathf.Clamp(rb.linearDamping, 1.5f, 10);
-            Debug.Log("Linear: " + rb.linearDamping);
+            //Debug.Log("Linear: " + rb.linearDamping);
 
 
             rb.MovePosition(Vector3.Lerp(transform.position, new Vector3(0,0,transform.position.z),Time.deltaTime * 0.5f));
@@ -171,7 +176,7 @@ public class CarHandler : MonoBehaviour
 
         if(input.y < 0 && carMaxSpeedPercentage > 0.2f)
         {
-            Debug.Log(carMaxSpeedPercentage);
+            //Debug.Log(carMaxSpeedPercentage);
 
             if(carMaxSpeedPercentage > 0 && carMaxSpeedPercentage < 0.3)  //if the percentage is greater than 0 and less than 0.3
             {
@@ -249,6 +254,7 @@ public class CarHandler : MonoBehaviour
                 return;
             }
         }
+        StartCoroutine(SlowDownTimeCO());
 
         Vector3 velocity = rb.linearVelocity + rb.angularVelocity;  // here we get the rigidbody of the car
         explodeHandler.Explode(velocity * 45);  // here we call the explode method in the explode handler script to explode the car
@@ -256,7 +262,7 @@ public class CarHandler : MonoBehaviour
 
         Vector3 impactDirection = -rb.transform.forward;
         rb.AddForce(impactDirection *4f, ForceMode.Impulse);  // this moves the car object backward gives you a backward effect.
-        Debug.Log(impactDirection);
+        
 
         carCrashAS.volume = carMaxSpeedPercentage;
         carCrashAS.volume = Mathf.Clamp(carCrashAS.volume, 0.25f,1f);
@@ -266,9 +272,11 @@ public class CarHandler : MonoBehaviour
 
         carCrashAS.Play();
 
+        Debug.Log("crash sound" + carCrashAS);
+
         //Trigger Event
         OnPlayerCrashed?.Invoke(this);  // here we pass the car handler reference to the UI Handler. Internally it call the method register to it the listener in UI.
 
-        StartCoroutine(SlowDownTimeCO());
+        
     }
 }
